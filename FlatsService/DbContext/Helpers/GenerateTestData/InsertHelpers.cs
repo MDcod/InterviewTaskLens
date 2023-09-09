@@ -7,11 +7,34 @@ public static partial class Helpers
 {
     public static void GenerateTestDataIfNeed(int dataCount = 10)
     {
-        InsertApartmentData(dataCount);
-        InsertPriceData(dataCount);
+        GenerateApartmentData(dataCount);
+        GeneratePriceData(dataCount);
     }
 
-    private static void InsertPriceData(int dataCount)
+    // Заполняем таблицу Apartments случайными данными
+    private static void GenerateApartmentData(int dataCount)
+    {
+        using var connection = Default.OpenSqliteConnection();
+
+        var rowCount = QueryHelpers.GetRowsCount(connection, "Apartments");
+        if (rowCount >= dataCount) return;
+
+        using var insertCommand = new SqliteCommand(
+            "INSERT INTO Apartments (number_of_rooms, website_link) VALUES (@numberOfRooms, @websiteLink);", connection);
+        insertCommand.Parameters.Add("@numberOfRooms", SqliteType.Integer);
+        insertCommand.Parameters.Add("@websiteLink", SqliteType.Text);
+
+        var r = new Random();
+        for (var i = 0; i < dataCount; i++)
+        {
+            insertCommand.Parameters["@numberOfRooms"].Value = r.Next(1, 6);
+            insertCommand.Parameters["@websiteLink"].Value = $"https://example.com/apartment/{r.Next(1000)}";
+            insertCommand.ExecuteNonQuery();
+        }
+    }
+
+    // Заполняем таблицу PriceHistory случайными данными
+    private static void GeneratePriceData(int dataCount)
     {
         using var connection = Default.OpenSqliteConnection();
 
@@ -25,7 +48,7 @@ public static partial class Helpers
 
         var random = new Random();
         var dates = new SortedSet<DateTime>();
-        foreach (var i in Enumerable.Range(1, 10))
+        foreach (var i in Enumerable.Range(1, dataCount))
         {
             var lastDate = dates.Any() ? dates.Last() : new DateTime(2018, 5, 13);
             dates.Add(lastDate + TimeSpan.FromDays(random.Next(i + 1, i + 5) * 31));
@@ -47,30 +70,6 @@ public static partial class Helpers
                 insertCommand.Parameters["@price"].Value = Math.Abs(currentPrice);
                 insertCommand.ExecuteNonQuery();
             }
-        }
-    }
-
-    private static void InsertApartmentData(int dataCount)
-    {
-        using var connection = new SqliteConnection(Default.ConnectionString);
-        connection.Open();
-
-        var rowCount = QueryHelpers.GetRowsCount(connection, "Apartments");
-        if (rowCount >= dataCount) return;
-
-        using var insertCommand = new SqliteCommand(
-            "INSERT INTO Apartments (number_of_rooms, website_link) VALUES (@numberOfRooms, @websiteLink);", connection);
-        insertCommand.Parameters.Add("@numberOfRooms", SqliteType.Integer);
-        insertCommand.Parameters.Add("@websiteLink", SqliteType.Text);
-
-        var r = new Random();
-        for (var i = 0; i < dataCount; i++)
-        {
-            insertCommand.Parameters["@numberOfRooms"]
-                .Value = r.Next(1, 6);
-            insertCommand.Parameters["@websiteLink"]
-                .Value = $"https://example.com/apartment/{r.Next(1000)}";
-            insertCommand.ExecuteNonQuery();
         }
     }
 }

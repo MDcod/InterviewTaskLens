@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlatsService", "FlatsService\FlatsService.csproj", "{650725ED-DD7F-479D-B869-FABEB96CC7DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WriterReaderServer", "WriterReaderServer\WriterReaderServer.csproj", "{D75902C6-5867-4BBE-AA51-0D3308AD616B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{650725ED-DD7F-479D-B869-FABEB96CC7DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{650725ED-DD7F-479D-B869-FABEB96CC7DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{650725ED-DD7F-479D-B869-FABEB96CC7DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D75902C6-5867-4BBE-AA51-0D3308AD616B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D75902C6-5867-4BBE-AA51-0D3308AD616B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D75902C6-5867-4BBE-AA51-0D3308AD616B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D75902C6-5867-4BBE-AA51-0D3308AD616B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
