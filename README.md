@@ -1,5 +1,5 @@
 ﻿# Запуск
-- Скачать бинарники по адресу https://github.com/MDcod/InterviewTaskLens/releases/download/release/flatsService.zip
+- Скачать бинарники по адресу https://github.com/MDcod/InterviewTaskLens/releases/download/release%2F1.0.0/flatsService.zip
 - После расспаковки запустить файл FlatsService.exe находящийся в корне архива
 - Открыть url http://localhost:5000 или тот который указан в открывшейся консоли как `Now listening on: {url}` в случае если port отличается
 
